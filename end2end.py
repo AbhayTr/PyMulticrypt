@@ -40,14 +40,14 @@ def is_coprime(number1, number2):
 
 def mod_inverse(number1, number2):
 
-    def eea(number1, number2):
+    def modulo_inverse(number1, number2):
         if number2 == 0:
             return (1,0)
         (q,r) = (number1 // number2, number1 % number2)
-        (s,t) = eea(number2, r)
+        (s,t) = modulo_inverse(number2, r)
         return (t, s - (q * t))
 
-    inv = eea(number1, number2)[0]
+    inv = modulo_inverse(number1, number2)[0]
     if inv < 1:
         inv += number2
     return inv
@@ -73,7 +73,7 @@ def get_keys():
             e = number
             break
     public_key = str(public_key_number) + "X" + str(e)
-    private_key = str(mod_inverse(e, phi_n))
+    private_key = str(mod_inverse(e, phi_n)) + "X" + str(public_key_number)
     return {"private": private_key, "public": public_key}
 
 def encrypt(message, public_key):
@@ -89,10 +89,11 @@ def encrypt(message, public_key):
     encrypted_message = str(int((int(encrypted_message) ** e) % public_key_number))        
     return encrypted_message
 
-def decrypt(message, private_key, public_key): 
-    seperator_position = public_key.index("X")
-    public_key_number = int(public_key[:seperator_position])
-    charecters = str(pow(int(message), int(private_key), public_key_number)).replace("300", " ").split(" ")
+def decrypt(message, private_key):
+    seperator_position = private_key.index("X")
+    public_key_number = int(private_key[seperator_position + 1:])
+    private_key_number = int(private_key[:seperator_position])
+    charecters = str(pow(int(message), private_key_number, public_key_number)).split("300")
     actual_message = ""
     for charecter in charecters:
         actual_message += chr(int(charecter))
@@ -117,5 +118,5 @@ print(msg)
 print()
 print("Decrypted Message:")
 print()
-print(decrypt(msg, keys["private"], keys["public"]))
+print(decrypt(msg, keys["private"]))
 print()
