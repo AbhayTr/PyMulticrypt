@@ -1,4 +1,5 @@
 import random
+import textwrap
 
 class End2End:
 
@@ -69,6 +70,39 @@ class End2End:
             inv += number2
         return inv
 
+    def compress_number(self, number):
+        number_pieces_list = textwrap.wrap(number, 1)
+        compressed_number_string = ""
+        for number_piece in number_pieces_list:
+            try:
+                compressed_number_string += chr(int(number_piece))
+            except:
+                position_of_exception = 0
+                for digit in range(len(number_piece)):
+                    try:
+                        check = int(number_piece[digit])
+                    except:
+                        position_of_exception = digit
+                        break
+                digits_before_exception = number_piece[:position_of_exception]
+                exception_charecter = number_piece[position_of_exception]
+                digits_after_exception = number_piece[position_of_exception + 1:]
+                if digits_before_exception != "":
+                    compressed_number_string += chr(int(digits_before_exception))
+                compressed_number_string += exception_charecter
+                if digits_after_exception != "":
+                    compressed_number_string += chr(int(digits_after_exception))
+        return compressed_number_string
+
+    def deflate_number_string(self, number_string, exception_charecter):
+        deflated_number = ""
+        for charecter in number_string:
+            if charecter != exception_charecter:
+                deflated_number += str(ord(charecter))
+            else:
+                deflated_number += charecter
+        return deflated_number
+
     def get_keys(self):
         prime_key_1 = 0
         prime_key_2 = 0
@@ -133,9 +167,10 @@ class End2End:
             if charecter_index2 != len(charecters2) - 1:
                 encrypted_message_stage2 += "42"
         encrypted_message = str(int(encrypted_message_stage2) * key) + "K" + self.rsa_encrypt(str(key), self.public_key)
-        return encrypted_message
+        return self.compress_number(encrypted_message)
 
     def decrypt(self, message):
+        message = self.deflate_number_string(message, "K")
         seperator_position = message.index("K")
         encrypted_key = message[seperator_position + 1:]
         encrypted_message = message[:seperator_position]
