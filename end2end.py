@@ -70,11 +70,10 @@ class End2End:
         return inv
 
     def get_keys(self):
-        n = 1024
         prime_key_1 = 0
         prime_key_2 = 0
         while True:
-            prime_key = self.n_bits_prime(n)
+            prime_key = self.n_bits_prime(1024)
             if self.check_prime_strength(prime_key):
                 if prime_key_1 == 0:
                     prime_key_1 = prime_key
@@ -96,7 +95,7 @@ class End2End:
     def keys(self):
         return {"public": self.public_key, "private": self.private_key}
 
-    def encrypt(self, message, public_key):
+    def rsa_encrypt(self, message, public_key):
         seperator_position = public_key.index("X")
         e = int(public_key[seperator_position + 1:])
         public_key_number = int(public_key[:seperator_position])
@@ -109,7 +108,7 @@ class End2End:
         encrypted_message = str(int((int(encrypted_message) ** e) % public_key_number))
         return encrypted_message
 
-    def decrypt(self, message, private_key):
+    def rsa_decrypt(self, message, private_key):
         seperator_position = private_key.index("X")
         public_key_number = int(private_key[seperator_position + 1:])
         private_key_number = int(private_key[:seperator_position])
@@ -117,4 +116,37 @@ class End2End:
         actual_message = ""
         for charecter in charecters:
             actual_message += chr(int(charecter))
+        return actual_message
+
+    def encrypt(self, message):
+        key = self.n_bits_prime(256)
+        charecters = list(message)
+        encrypted_message_stage1 = ""
+        for charecter_index in range(len(charecters)):
+            encrypted_message_stage1 += str(ord(charecters[charecter_index]))
+            if charecter_index != len(charecters) - 1:
+                encrypted_message_stage1 += "X"
+        charecters2 = list(encrypted_message_stage1)
+        encrypted_message_stage2 = ""
+        for charecter_index2 in range(len(charecters2)):
+            encrypted_message_stage2 += str(ord(charecters2[charecter_index2]))
+            if charecter_index2 != len(charecters2) - 1:
+                encrypted_message_stage2 += "42"
+        encrypted_message = str(int(encrypted_message_stage2) * key) + "K" + self.rsa_encrypt(str(key), self.public_key)
+        return encrypted_message
+
+    def decrypt(self, message):
+        seperator_position = message.index("K")
+        encrypted_key = message[seperator_position + 1:]
+        encrypted_message = message[:seperator_position]
+        key = int(self.rsa_decrypt(encrypted_key, self.private_key))
+        encrypted_message = int(encrypted_message) // key
+        charecters = str(encrypted_message).split("42")
+        actual_message_stage1 = ""
+        for charecter in charecters:
+            actual_message_stage1 += chr(int(charecter))
+        charecters2 = actual_message_stage1.split("X")
+        actual_message = ""
+        for charecter2 in charecters2:
+            actual_message += chr(int(charecter2))
         return actual_message
