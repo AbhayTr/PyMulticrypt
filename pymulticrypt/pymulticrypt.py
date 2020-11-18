@@ -31,7 +31,7 @@ Methods:
 @params
 
 message (Required): Message to encrypt.
-public_key (Required): Public Key of the recipient of the message (for the assymetric encryption part).
+public_key (Required): Public Key of the recipient of the message (for the asymmetric encryption part).
 
 3. decrypt(): Decrypts the encrypted message using MULTICRYPT algorithm.
 
