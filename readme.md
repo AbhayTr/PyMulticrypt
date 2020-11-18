@@ -58,11 +58,11 @@ encryptor = End2End(Parameters)
 
 ## Methods
 
-###keys()
+### keys()
 
 Returns Private Key and Public Key.
 
-###encrypt()
+### encrypt()
 
 Encrypts the message using MULTICRYPT algorithm.
 
