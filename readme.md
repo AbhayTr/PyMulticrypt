@@ -34,3 +34,18 @@ key pair system.
 
 Hence, MultiCrypt encrypiton is a hybrid encryption algorithm (i.e. involves both symmetric encryption algorithm (key encryption)
 and asymmetric encryption (RSA encryption)) which is ideal for transmitting any kind of data securely using any kind of network protocol.
+
+## Installation
+
+Simply using PyPi: 
+
+```
+pip install pymulticrypt
+```
+## Usage
+
+```python
+from pyfractals import MandelBrot
+
+MandelBrot(mode = "image/graph", optional_params)
+```
