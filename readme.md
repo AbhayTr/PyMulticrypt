@@ -62,9 +62,17 @@ e2e = End2End(Parameters)
 
 ### keys()
 
-Returns Private Key and Public Key.
+```python
+keys = e2e.keys()
+```
+
+Returns Private Key and Public Key in the form of dictionary of the format {"public": %YOUR_PUBLIC_KEY%, "private": %YOUR_PRIVATE_KEY%}.
 
 ### encrypt()
+
+```python
+encrypted_message = e2e.encrypt(message, public_key)
+```
 
 Encrypts the message using MULTICRYPT algorithm.
 
@@ -75,6 +83,10 @@ Encrypts the message using MULTICRYPT algorithm.
 
 
 ### decrypt()
+
+```python
+actual_message = e2e.decrypt(message, private_key)
+```
 
 Decrypts the encrypted message using MULTICRYPT algorithm.
 
