@@ -48,7 +48,7 @@ pip install pymulticrypt
 encryptor = End2End(Parameters)
 ```
 
-# Parameters
+### Parameters
 
 - **public_key (Optional):** Public Key to be used if you want to use existing key (Default: "").
 - **private_key (Optional):** Private Key to be used if you want to use existing key (Default: "").
@@ -56,31 +56,27 @@ encryptor = End2End(Parameters)
 - **key_path (Optional):** Specifies the path and name of the file where the keys have to be stored, if save = True (Default: Same as your python file).
 - **new (Optional):** Should be True/False. Specifies whether it should ignore any existing key pairs and generate new key pair or not (Default: False).
 
-# Methods
+## Methods
 
-```python 
-keys()
-``` 
+###keys()
+
 Returns Private Key and Public Key.
 
-```python
-encrypt(params)
-```
+###encrypt()
 
 Encrypts the message using MULTICRYPT algorithm.
 
-**params**
+### Parameters
 
 - **message (Required):** Message to encrypt.
 - **public_key (Required):** Public Key of the recipient of the message (for the assymetric encryption part).
 
-```python
-decrypt(params)
-```
+
+### decrypt()
 
 Decrypts the encrypted message using MULTICRYPT algorithm.
 
-**params**
+### Parameters
 
 - **message (Required):** Encrypted Message to decryt.
 - **private_key (Optional):** Your Private Key required to decrypt any message which is encrypted with Public Key
