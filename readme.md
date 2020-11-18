@@ -35,6 +35,9 @@ key pair system.
 Hence, MultiCrypt encrypiton is a hybrid encryption algorithm (i.e. involves both symmetric encryption algorithm (key encryption)
 and asymmetric encryption (RSA encryption)) which is ideal for transmitting any kind of data securely using any kind of network protocol.
 
+**Please do note that I am using a cutom RSA Encryption algorithm made by me for suiting the symmetric part of the MultiCrypt algorithm.
+Hence, public and private keys of standard RSA Encryption System WILL NOT WORK in MultiCrypt Encryption System and vice versa.**
+
 ## Installation
 
 Simply using PyPi: 
