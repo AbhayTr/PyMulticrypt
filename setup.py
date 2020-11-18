@@ -1,6 +1,6 @@
 from setuptools import setup
 
-VERSION = "v1.1"
+VERSION = "v1.2"
 
 readme = open("readme.md", "r").read();
 
