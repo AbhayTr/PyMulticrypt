@@ -66,7 +66,7 @@ Returns Private Key and Public Key.
 
 Encrypts the message using MULTICRYPT algorithm.
 
-### Parameters
+**Parameters**
 
 - **message (Required):** Message to encrypt.
 - **public_key (Required):** Public Key of the recipient of the message (for the assymetric encryption part).
@@ -76,7 +76,7 @@ Encrypts the message using MULTICRYPT algorithm.
 
 Decrypts the encrypted message using MULTICRYPT algorithm.
 
-### Parameters
+**Parameters**
 
 - **message (Required):** Encrypted Message to decryt.
 - **private_key (Optional):** Your Private Key required to decrypt any message which is encrypted with Public Key
