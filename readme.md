@@ -45,6 +45,8 @@ pip install pymulticrypt
 ## Usage
 
 ```python
+from pymulticrypt import End2End
+
 encryptor = End2End(Parameters)
 ```
 
